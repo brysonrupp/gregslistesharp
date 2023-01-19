@@ -9,4 +9,10 @@ public class Home
     public double? Price { get; set; }
     public string Description { get; set; }
     public string ImgUrl { get; set; }
+
+    public bool Archived { get; set; }
+
+    public string CreatorId { get; set; }
+
+    public Account Creator { get; set; }
 }

@@ -14,10 +14,16 @@ public class HomesRepository
     {
         string sql = @"
             SELECT
-            *
-            FROM homes;
+            ho.*,
+            ac.*
+            FROM homes ho
+            JOIN accounts ac ON ac.id = ho.creatorId;
             ";
-        List<Home> homes = _db.Query<Home>(sql).ToList();
+        List<Home> homes = _db.Query<Home, Account, Home>(sql, (home, account) =>
+        {
+            home.Creator = account;
+            return home;
+        }).ToList();
         return homes;
     }
 }

@@ -9,7 +9,7 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
-    homes(
+    IF NOT EXISTS homes(
         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         style VARCHAR(255) NOT NULL COMMENT 'type of home',
         year INT NOT NULL,
@@ -17,9 +17,12 @@ CREATE TABLE
         sqFeet INT NOT NULL,
         description TEXT,
         imgUrl VARCHAR(255),
+        archived BOOLEAN NOT NULL DEFAULT false,
+        creatorId VARCHAR(255) NOT NULL,
         createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
-        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update'
-    ) default charset utf8mb4 COMMENT '';
+        updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+        -- FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
+    ) default charset utf8 COMMENT '';
 
 INSERT INTO
     homes (
@@ -28,7 +31,8 @@ INSERT INTO
         price,
         sqFeet,
         description,
-        imgUrl
+        imgUrl,
+        creatorId
     )
 VALUES (
         'Mansion',
@@ -36,7 +40,8 @@ VALUES (
         2000000,
         15000,
         '9 bed, 6 bath',
-        'https://image.cnbcfm.com/api/v1/image/106998054-1641517061268944AiroleWay-print-64.jpg?v=1641524919'
+        'https://image.cnbcfm.com/api/v1/image/106998054-1641517061268944AiroleWay-print-64.jpg?v=1641524919',
+        '639cc3a716fd91062823ec82'
     );
 
 INSERT INTO
