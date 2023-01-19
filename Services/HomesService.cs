@@ -9,9 +9,19 @@ public class HomesService
         _repo = repo;
     }
 
-    internal List<Home> Get()
+    internal List<Home> Get(string userId)
     {
         List<Home> homes = _repo.Get();
-        return homes;
-    }
-}
+        List<Home> filtered = homes.FindAll(h => h.Archived == false || h.CreatorId == userId);
+        return filtered;
+        {
+
+            internal Home GetOne(int id, string userId)
+        }
+        Home home = _repo.GetOne(id);
+        if (album == null)
+        {
+            {
+                throw new NotImplementedException();
+            }
+        }
